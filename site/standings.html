@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Standings</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav>
+  <a href="/">Home</a>
+  <a href="/standings">Standings</a>
+  <a href="/matchups">Matchups</a>
+  <a href="/players">Players</a>
+</nav>
+
+<h1>League Standings</h1>
+<div id="standings"></div>
+
+<script type="module">
+  import { api } from "./js/api.js";
+
+  const data = await api("standings");
+  document.getElementById("standings").innerText =
+    JSON.stringify(data, null, 2);
+</script>
+
+</body>
+</html>
