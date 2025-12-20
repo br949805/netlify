@@ -1,0 +1,161 @@
+:root{
+  --bg0:#0e1420;
+  --panel:#161f2f;
+  --panel2:#1a2536;
+  --border:rgba(255,255,255,.08);
+  --text:#e7eefc;
+  --muted:rgba(231,238,252,.70);
+  --accent:#2dd4bf;
+  --accent2:#7c3aed;
+}
+
+body{ background:var(--bg0); color:var(--text); }
+.panel{ background:var(--panel); border:1px solid var(--border); }
+.panel2{ background:var(--panel2); border:1px solid var(--border); }
+.muted{ color:var(--muted); }
+.linky:hover{ color:var(--accent); }
+.ringy:focus{ outline:none; box-shadow:0 0 0 3px rgba(45,212,191,.22); }
+
+/* chips */
+.chip{ border:1px solid var(--border); background:rgba(255,255,255,.03); }
+.chip[data-active="true"]{ border-color:rgba(45,212,191,.55); background:rgba(45,212,191,.12); color:var(--text); }
+
+/* Sidebar nav */
+.navlink{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  padding:.5rem .75rem;
+  border-radius:.9rem;
+  background:var(--panel2);
+  border:1px solid var(--border);
+  transition: background .15s ease, border-color .15s ease;
+  text-decoration:none;
+  color:var(--text);
+}
+.navlink:hover{ border-color: rgba(255,255,255,.14); }
+.navlink.disabled{ opacity:.5; cursor:not-allowed; pointer-events:none; }
+.nav-active{
+  background:rgba(124,58,237,.10);
+  border-color:rgba(124,58,237,.25);
+}
+.nav-badge{
+  margin-left:auto;
+  font-size:.75rem;
+  padding:.125rem .5rem;
+  border-radius:999px;
+  background:rgba(124,58,237,.18);
+  border:1px solid rgba(124,58,237,.25);
+}
+
+/* Rules typography */
+.rules h2{ font-weight:800; font-size:1.1rem; margin-top:1.25rem; }
+.rules p, .rules li{ color: var(--muted); }
+.rules ul{ list-style: disc; padding-left: 1.25rem; }
+
+/* ===== Bracket styles ===== */
+.bracket-wrap { overflow-x: auto; }
+.bracket {
+  display: grid;
+  gap: 20px;
+  align-items: start;
+}
+
+.bracket-round {
+  position: relative;
+  min-width: 260px;
+}
+
+.bracket-round-title {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+
+.bracket-games {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bracket-gap, 18px);
+}
+
+.bracket-game {
+  position: relative;
+  border-radius: 18px;
+  padding: 12px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid var(--border);
+}
+
+.bracket-game-meta {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom: 10px;
+}
+
+.bracket-team {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.02);
+  border: 1px solid rgba(255,255,255,.06);
+}
+
+.bracket-team + .bracket-team { margin-top: 8px; }
+
+.bracket-team-name { font-weight: 650; }
+.bracket-team-sub { font-size: 12px; color: var(--muted); }
+
+.bracket-score {
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+}
+
+.bracket-w {
+  border-color: rgba(45,212,191,.35);
+  background: rgba(45,212,191,.08);
+}
+.bracket-w .bracket-team-name { font-weight: 900; }
+.bracket-w .bracket-score { color: var(--accent); }
+
+.bracket-placeholder {
+  color: var(--muted);
+  font-weight: 650;
+}
+
+/* --- Connector lines (traditional bracket feel) ---
+   We draw a short horizontal line from each game to the right,
+   plus a vertical segment that suggests it connects into the next round.
+*/
+.bracket-game::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -12px;
+  width: 12px;
+  height: 2px;
+  background: rgba(255,255,255,.14);
+  transform: translateY(-1px);
+}
+
+/* Vertical connector stub on the right side of a game */
+.bracket-game::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  right: -12px;
+  width: 2px;
+  height: calc(100% - 32px);
+  background: rgba(255,255,255,.10);
+  border-radius: 2px;
+}
+
+/* Don’t draw connectors on the last round */
+.bracket-round.is-last .bracket-game::before,
+.bracket-round.is-last .bracket-game::after {
+  display: none;
+}

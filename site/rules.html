@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+
+<body class="min-h-screen">
+  <div id="app"></div>
+
+  <script type="module">
+    import { renderLayout } from "./js/layout.js";
+
+    renderLayout({
+      active: "rules",
+      mainHtml: `
+        <header class="px-6 py-5 border-b" style="border-color:var(--border)">
+          <div>
+            <h1 class="text-2xl font-extrabold tracking-tight">League Rules</h1>
+            <p class="muted text-sm mt-1">The bylaws that keep the chaos organized.</p>
+          </div>
+        </header>
+
+        <div class="px-6 py-6">
+          <div class="panel rounded-3xl p-6 rules">
+            <h2>Introduction</h2>
+            <p>
+              These bylaws will govern The League of Ordinary Gentleman, a dynasty format fantasy football league.
+              Managers will retain the rights to all players on their roster until they are dropped, traded, or retire from the NFL.
+            </p>
+
+            <h2>Rosters</h2>
+            <ul>
+              <li>Starting positions are QB, RB, RB, WR, WR, WR, TE, WR/RB/TE, WR/RB/TE, K</li>
+              <li>We have a 30-player roster. In addition to regular roster spots you will be able to designate 3 players to IR if they have an official designated OUT, EXE, SUS, or IR.</li>
+              <li>5 Taxi Squad spots will also be available for rookies for a maximum of 2 years. A player can only be designated to the taxi squad during their rookie season and cannot be demoted once they have been promoted to a general roster position.</li>
+              <li>Rosters will expand to 35 general roster spots each season after the Super Bowl.</li>
+              <li>Rosters will need to be reduced to 30 prior to the kickoff of the first game of the fourth week of the preseason.</li>
+            </ul>
+          </div>
+        </div>
+
+        <footer class="px-6 pb-8">
+          <div class="muted text-xs">© League Hub • Built for trash talk and truth.</div>
+        </footer>
+      `
+    });
+  </script>
+</body>
+</html>

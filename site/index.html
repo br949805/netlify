@@ -1,370 +1,206 @@
 <!doctype html>
 <html>
 <head>
-  <base target="_top" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <style>
-    :root{
-      --bg0:#0e1420;
-      --panel:#161f2f;
-      --panel2:#1a2536;
-      --border:rgba(255,255,255,.08);
-      --text:#e7eefc;
-      --muted:rgba(231,238,252,.70);
-      --accent:#2dd4bf; /* teal-ish accent; tweak to your league color */
-      --accent2:#7c3aed; /* secondary accent */
-    }
-    body{ background:var(--bg0); color:var(--text); }
-    .panel{ background:var(--panel); border:1px solid var(--border); }
-    .panel2{ background:var(--panel2); border:1px solid var(--border); }
-    .muted{ color:var(--muted); }
-    .chip{
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.03);
-    }
-    .chip[data-active="true"]{
-      border-color:rgba(45,212,191,.55);
-      background:rgba(45,212,191,.12);
-      color:var(--text);
-    }
-    .linky:hover{ color:var(--accent); }
-    .ringy:focus{ outline:none; box-shadow: 0 0 0 3px rgba(45,212,191,.22); }
-  </style>
+  <link rel="stylesheet" href="./css/styles.css" />
 </head>
 
 <body class="min-h-screen">
-  <div class="flex min-h-screen">
+  <div id="app"></div>
 
-    <!-- LEFT NAV -->
-    <aside class="w-[280px] panel flex flex-col">
-      <div class="px-5 py-4 border-b" style="border-color:var(--border)">
-        <div class="flex items-center gap-3">
-<div class="w-20 h-20 rounded-xl overflow-hidden flex items-center justify-center">
-            <?!= include("assets/logo"); ?>
-        </div>
-          <div>
-            <div class="font-semibold leading-tight">League Hub</div>
-            <div class="text-xs muted">Dynasty • 2025 Season</div>
-          </div>
-        </div>
-      </div>
+  <script type="module">
+    import { renderLayout } from "./js/layout.js";
+    import { renderWinnersBracket } from "./js/playoffs.js";
 
-     <nav class="px-3 py-3 space-y-1">
-  <a class="flex items-center gap-3 px-3 py-2 rounded-xl panel2 linky" href="?page=index">
-    <span class="text-sm">Dashboard</span>
-  </a>
+    const LEAGUE_ID = "1203358930160328704";
 
-  <!-- These don't exist yet, so either leave disabled or create the pages -->
-  <a class="flex items-center gap-3 px-3 py-2 rounded-xl panel2 opacity-50 cursor-not-allowed"
-     href="javascript:void(0)" title="Create standings.html to enable">
-    <span class="text-sm">Standings</span>
-  </a>
-
-  <a class="flex items-center gap-3 px-3 py-2 rounded-xl panel2 opacity-50 cursor-not-allowed"
-     href="javascript:void(0)" title="Create matchups.html to enable">
-    <span class="text-sm">Matchups</span>
-  </a>
-
-  <a class="flex items-center gap-3 px-3 py-2 rounded-xl panel2 opacity-50 cursor-not-allowed"
-     href="javascript:void(0)" title="Create players.html to enable">
-    <span class="text-sm">Players</span>
-  </a>
-
-  <div class="mt-3 pt-3 border-t" style="border-color:var(--border)"></div>
-
-  <a class="flex items-center gap-3 px-3 py-2 rounded-xl"
-     style="background:rgba(124,58,237,.10); border:1px solid rgba(124,58,237,.25)"
-     href="?page=news">
-    <span class="text-sm font-semibold">News & Stories</span>
-    <span class="ml-auto text-xs px-2 py-0.5 rounded-full"
-          style="background:rgba(124,58,237,.18); border:1px solid rgba(124,58,237,.25)">
-      New
-    </span>
-  </a>
-
-  <a class="flex items-center gap-3 px-3 py-2 rounded-xl panel2 opacity-50 cursor-not-allowed"
-     href="javascript:void(0)" title="Create history.html to enable">
-    <span class="text-sm">History</span>
-  </a>
-
-  <a class="flex items-center gap-3 px-3 py-2 rounded-xl panel2 opacity-50 cursor-not-allowed"
-     href="javascript:void(0)" title="Create rules.html to enable">
-    <span class="text-sm">Rules</span>
-  </a>
-</nav>
-      <div class="mt-auto p-4">
-        <div class="panel2 rounded-2xl p-4">
-          <div class="text-sm font-semibold">Tip</div>
-          <div class="text-xs muted mt-1">
-            Publish weekly recaps + power rankings here and embed the best posts into your main page.
-          </div>
-          <button class="mt-3 w-full text-sm font-semibold rounded-xl px-3 py-2"
-                  style="background:rgba(45,212,191,.16); border:1px solid rgba(45,212,191,.28); color:var(--text)">
-            Create Story
-          </button>
-        </div>
-      </div>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <main class="flex-1">
-      <!-- Top bar -->
-      <header class="px-6 py-5 border-b" style="border-color:var(--border)">
-        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h1 class="text-2xl font-extrabold tracking-tight">News & Stories</h1>
-            <p class="muted text-sm mt-1">Recaps, power rankings, trade drama, and commissioner posts — all in one place.</p>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <div class="relative">
-              <input
-                class="ringy w-[280px] md:w-[360px] rounded-2xl px-4 py-2 panel2 text-sm"
-                placeholder="Search stories, teams, players…"
-              />
+    renderLayout({
+      active: "home",
+      mainHtml: `
+        <header class="px-6 py-5 border-b" style="border-color:var(--border)">
+          <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h1 class="text-2xl font-extrabold tracking-tight">News & Stories</h1>
+              <p class="muted text-sm mt-1">Recaps, power rankings, trade drama, and commissioner posts — all in one place.</p>
             </div>
-            <button class="ringy rounded-2xl px-4 py-2 text-sm font-semibold"
-                    style="background:rgba(255,255,255,.06); border:1px solid var(--border)">
-              Filter
-            </button>
+
+            <div class="flex items-center gap-2">
+              <div class="relative">
+                <input
+                  class="ringy w-[280px] md:w-[360px] rounded-2xl px-4 py-2 panel2 text-sm"
+                  placeholder="Search stories, teams, players…"
+                />
+              </div>
+              <button class="ringy rounded-2xl px-4 py-2 text-sm font-semibold"
+                      style="background:rgba(255,255,255,.06); border:1px solid var(--border)">
+                Filter
+              </button>
+            </div>
           </div>
-        </div>
 
-        <!-- filter chips -->
-        <div class="mt-4 flex flex-wrap gap-2">
-          <button class="chip ringy text-sm px-3 py-1.5 rounded-full" data-active="true">All</button>
-          <button class="chip ringy text-sm px-3 py-1.5 rounded-full">Weekly Recaps</button>
-          <button class="chip ringy text-sm px-3 py-1.5 rounded-full">Power Rankings</button>
-          <button class="chip ringy text-sm px-3 py-1.5 rounded-full">Trade Tracker</button>
-          <button class="chip ringy text-sm px-3 py-1.5 rounded-full">Commissioner</button>
-          <button class="chip ringy text-sm px-3 py-1.5 rounded-full">Draft Room</button>
-        </div>
-      </header>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <button class="chip ringy text-sm px-3 py-1.5 rounded-full" data-active="true">All</button>
+            <button class="chip ringy text-sm px-3 py-1.5 rounded-full">Weekly Recaps</button>
+            <button class="chip ringy text-sm px-3 py-1.5 rounded-full">Power Rankings</button>
+            <button class="chip ringy text-sm px-3 py-1.5 rounded-full">Trade Tracker</button>
+            <button class="chip ringy text-sm px-3 py-1.5 rounded-full">Commissioner</button>
+            <button class="chip ringy text-sm px-3 py-1.5 rounded-full">Draft Room</button>
+          </div>
+        </header>
 
-      <div class="px-6 py-6 grid grid-cols-1 xl:grid-cols-12 gap-6">
-        <!-- Left: feed -->
-        <section class="xl:col-span-8 space-y-6">
+        <div class="px-6 py-6 grid grid-cols-1 xl:grid-cols-12 gap-6">
+          <!-- Middle column: feed -->
+          <section class="xl:col-span-8 space-y-6">
 
-          <!-- Featured story -->
-          <article class="panel rounded-3xl overflow-hidden">
-            <div class="p-6 md:p-7">
-              <div class="flex items-center gap-2 text-xs">
-                <span class="px-2 py-1 rounded-full"
-                      style="background:rgba(45,212,191,.14); border:1px solid rgba(45,212,191,.25); color:var(--text)">
-                  Featured
-                </span>
-                <span class="muted">Dec 19, 2025 • 6 min read</span>
-              </div>
+            <!-- NEW: Playoff bracket (topmost content) -->
+            <div id="playoffBracket"></div>
 
-              <h2 class="mt-3 text-xl md:text-2xl font-extrabold tracking-tight">
-                Week 15 Fallout: The Wildcard Rule Claims Another Victim
-              </h2>
-              <p class="mt-2 muted">
-                Points For decides the final playoff ticket — and it came down to one garbage-time drive.
-                Here’s what it means for the bracket, the rookie draft order, and the teams already planning revenge.
-              </p>
-
-              <div class="mt-5 flex flex-wrap items-center gap-2">
-                <span class="chip text-xs px-2.5 py-1 rounded-full">Weekly Recaps</span>
-                <span class="chip text-xs px-2.5 py-1 rounded-full">Playoffs</span>
-                <span class="chip text-xs px-2.5 py-1 rounded-full">League Rules</span>
-              </div>
-
-              <div class="mt-6 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="h-9 w-9 rounded-2xl"
-                       style="background:rgba(124,58,237,.18); border:1px solid rgba(124,58,237,.25)"></div>
-                  <div>
-                    <div class="text-sm font-semibold leading-tight">Commissioner Desk</div>
-                    <div class="text-xs muted">League Office</div>
-                  </div>
+            <!-- Featured story -->
+            <article class="panel rounded-3xl overflow-hidden">
+              <div class="p-6 md:p-7">
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="px-2 py-1 rounded-full"
+                        style="background:rgba(45,212,191,.14); border:1px solid rgba(45,212,191,.25); color:var(--text)">
+                    Featured
+                  </span>
+                  <span class="muted">Dec 19, 2025 • 6 min read</span>
                 </div>
+
+                <h2 class="mt-3 text-xl md:text-2xl font-extrabold tracking-tight">
+                  Week 15 Fallout: The Wildcard Rule Claims Another Victim
+                </h2>
+                <p class="mt-2 muted">
+                  Points For decides the final playoff ticket — and it came down to one garbage-time drive.
+                  Here’s what it means for the bracket, the rookie draft order, and the teams already planning revenge.
+                </p>
+
+                <div class="mt-5 flex flex-wrap items-center gap-2">
+                  <span class="chip text-xs px-2.5 py-1 rounded-full">Weekly Recaps</span>
+                  <span class="chip text-xs px-2.5 py-1 rounded-full">Playoffs</span>
+                  <span class="chip text-xs px-2.5 py-1 rounded-full">League Rules</span>
+                </div>
+
+                <div class="mt-6 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 rounded-2xl"
+                         style="background:rgba(124,58,237,.18); border:1px solid rgba(124,58,237,.25)"></div>
+                    <div>
+                      <div class="text-sm font-semibold leading-tight">Commissioner Desk</div>
+                      <div class="text-xs muted">League Office</div>
+                    </div>
+                  </div>
+                  <button class="ringy rounded-2xl px-4 py-2 text-sm font-semibold"
+                          style="background:rgba(45,212,191,.16); border:1px solid rgba(45,212,191,.28)">
+                    Read story
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- Story grid (kept as-is, you can expand later) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <article class="panel rounded-3xl p-5">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs px-2.5 py-1 rounded-full"
+                        style="background:rgba(255,255,255,.05); border:1px solid var(--border)">
+                    Power Rankings
+                  </span>
+                  <span class="text-xs muted">Dec 18, 2025</span>
+                </div>
+                <h3 class="mt-3 font-extrabold text-lg tracking-tight linky cursor-pointer">
+                  Power Rankings: “Process Teams” vs “Vibes Teams”
+                </h3>
+                <p class="mt-2 text-sm muted">
+                  Efficiency metrics don’t lie… except when they do. Who’s actually scary in the playoffs?
+                </p>
+                <div class="mt-4 flex items-center justify-between">
+                  <div class="text-xs muted">By The Analytics Dept.</div>
+                  <button class="text-sm font-semibold linky">Open →</button>
+                </div>
+              </article>
+
+              <article class="panel rounded-3xl p-5">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs px-2.5 py-1 rounded-full"
+                        style="background:rgba(255,255,255,.05); border:1px solid var(--border)">
+                    Trade Tracker
+                  </span>
+                  <span class="text-xs muted">Dec 16, 2025</span>
+                </div>
+                <h3 class="mt-3 font-extrabold text-lg tracking-tight linky cursor-pointer">
+                  The Trade That Broke the Group Chat
+                </h3>
+                <p class="mt-2 text-sm muted">
+                  A contender pays the “three firsts tax.” Fair value or daylight robbery? Receipts included.
+                </p>
+                <div class="mt-4 flex items-center justify-between">
+                  <div class="text-xs muted">By League Wire</div>
+                  <button class="text-sm font-semibold linky">Open →</button>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- Right sidebar (unchanged) -->
+          <aside class="xl:col-span-4 space-y-6">
+            <div class="panel rounded-3xl p-5">
+              <div class="flex items-center justify-between">
+                <h3 class="font-extrabold tracking-tight">Trending</h3>
+                <span class="text-xs muted">Last 7 days</span>
+              </div>
+              <ol class="mt-4 space-y-3">
+                <li class="flex gap-3">
+                  <div class="text-xs font-extrabold w-6 muted">01</div>
+                  <div>
+                    <div class="text-sm font-semibold linky cursor-pointer">Wildcard math: who’s in, who’s out</div>
+                    <div class="text-xs muted mt-0.5">3.2k views</div>
+                  </div>
+                </li>
+              </ol>
+            </div>
+
+            <div class="panel rounded-3xl p-5">
+              <h3 class="font-extrabold tracking-tight">League Wire</h3>
+              <div class="mt-4 space-y-3">
+                <div class="panel2 rounded-2xl p-4">
+                  <div class="text-xs muted">Commissioner • Dec 19, 2025</div>
+                  <div class="text-sm font-semibold mt-1">Playoff bracket locks after MNF</div>
+                  <div class="text-xs muted mt-1">Tie-breakers: PF → H2H → PA</div>
+                </div>
+                <div class="panel2 rounded-2xl p-4">
+                  <div class="text-xs muted">System • Dec 18, 2025</div>
+                  <div class="text-sm font-semibold mt-1">Waivers run: Thursday 10:00 AM</div>
+                  <div class="text-xs muted mt-1">Reminder: FAAB bids due by 9:45</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel rounded-3xl p-5">
+              <h3 class="font-extrabold tracking-tight">Get the weekly recap</h3>
+              <p class="text-sm muted mt-2">
+                One email per week with the best writeups, plus the “one chart that matters.”
+              </p>
+              <div class="mt-4 flex gap-2">
+                <input class="ringy flex-1 rounded-2xl px-4 py-2 panel2 text-sm" placeholder="Email address" />
                 <button class="ringy rounded-2xl px-4 py-2 text-sm font-semibold"
-                        style="background:rgba(45,212,191,.16); border:1px solid rgba(45,212,191,.28)">
-                  Read story
+                        style="background:rgba(124,58,237,.16); border:1px solid rgba(124,58,237,.28)">
+                  Subscribe
                 </button>
               </div>
+              <div class="text-xs muted mt-2">You can swap this for a Google Form embed later.</div>
             </div>
-          </article>
-
-          <!-- Story grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-            <!-- Card -->
-            <article class="panel rounded-3xl p-5">
-              <div class="flex items-center justify-between">
-                <span class="text-xs px-2.5 py-1 rounded-full"
-                      style="background:rgba(255,255,255,.05); border:1px solid var(--border)">
-                  Power Rankings
-                </span>
-                <span class="text-xs muted">Dec 18, 2025</span>
-              </div>
-              <h3 class="mt-3 font-extrabold text-lg tracking-tight linky cursor-pointer">
-                Power Rankings: “Process Teams” vs “Vibes Teams”
-              </h3>
-              <p class="mt-2 text-sm muted">
-                Efficiency metrics don’t lie… except when they do. Who’s actually scary in the playoffs?
-              </p>
-              <div class="mt-4 flex items-center justify-between">
-                <div class="text-xs muted">By The Analytics Dept.</div>
-                <button class="text-sm font-semibold linky">Open →</button>
-              </div>
-            </article>
-
-            <article class="panel rounded-3xl p-5">
-              <div class="flex items-center justify-between">
-                <span class="text-xs px-2.5 py-1 rounded-full"
-                      style="background:rgba(255,255,255,.05); border:1px solid var(--border)">
-                  Trade Tracker
-                </span>
-                <span class="text-xs muted">Dec 16, 2025</span>
-              </div>
-              <h3 class="mt-3 font-extrabold text-lg tracking-tight linky cursor-pointer">
-                The Trade That Broke the Group Chat
-              </h3>
-              <p class="mt-2 text-sm muted">
-                A contender pays the “three firsts tax.” Fair value or daylight robbery? Receipts included.
-              </p>
-              <div class="mt-4 flex items-center justify-between">
-                <div class="text-xs muted">By League Wire</div>
-                <button class="text-sm font-semibold linky">Open →</button>
-              </div>
-            </article>
-
-            <article class="panel rounded-3xl p-5">
-              <div class="flex items-center justify-between">
-                <span class="text-xs px-2.5 py-1 rounded-full"
-                      style="background:rgba(255,255,255,.05); border:1px solid var(--border)">
-                  Weekly Recaps
-                </span>
-                <span class="text-xs muted">Dec 15, 2025</span>
-              </div>
-              <h3 class="mt-3 font-extrabold text-lg tracking-tight linky cursor-pointer">
-                Upset Watch: When Max PF Doesn’t Match Reality
-              </h3>
-              <p class="mt-2 text-sm muted">
-                The “best team” lost by 40. Here’s the matchup story, plus the player usage trend you missed.
-              </p>
-              <div class="mt-4 flex items-center justify-between">
-                <div class="text-xs muted">By Sunday Night Editor</div>
-                <button class="text-sm font-semibold linky">Open →</button>
-              </div>
-            </article>
-
-            <article class="panel rounded-3xl p-5">
-              <div class="flex items-center justify-between">
-                <span class="text-xs px-2.5 py-1 rounded-full"
-                      style="background:rgba(255,255,255,.05); border:1px solid var(--border)">
-                  Draft Room
-                </span>
-                <span class="text-xs muted">Dec 12, 2025</span>
-              </div>
-              <h3 class="mt-3 font-extrabold text-lg tracking-tight linky cursor-pointer">
-                Too-Early Mock: Picks 1–4 and Team Needs
-              </h3>
-              <p class="mt-2 text-sm muted">
-                Non-playoff squads jockeying for draft position — and how those rookies fit each roster build.
-              </p>
-              <div class="mt-4 flex items-center justify-between">
-                <div class="text-xs muted">By Scout Team</div>
-                <button class="text-sm font-semibold linky">Open →</button>
-              </div>
-            </article>
-          </div>
-
-          <!-- Pagination -->
-          <div class="flex items-center justify-between panel rounded-3xl px-5 py-4">
-            <div class="text-sm muted">Showing 1–5 of 42 stories</div>
-            <div class="flex items-center gap-2">
-              <button class="ringy rounded-2xl px-3 py-2 text-sm"
-                      style="background:rgba(255,255,255,.06); border:1px solid var(--border)">
-                Prev
-              </button>
-              <button class="ringy rounded-2xl px-3 py-2 text-sm font-semibold"
-                      style="background:rgba(45,212,191,.16); border:1px solid rgba(45,212,191,.28)">
-                Next
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Right: sidebar -->
-        <aside class="xl:col-span-4 space-y-6">
-          <!-- Trending -->
-          <div class="panel rounded-3xl p-5">
-            <div class="flex items-center justify-between">
-              <h3 class="font-extrabold tracking-tight">Trending</h3>
-              <span class="text-xs muted">Last 7 days</span>
-            </div>
-            <ol class="mt-4 space-y-3">
-              <li class="flex gap-3">
-                <div class="text-xs font-extrabold w-6 muted">01</div>
-                <div>
-                  <div class="text-sm font-semibold linky cursor-pointer">Wildcard math: who’s in, who’s out</div>
-                  <div class="text-xs muted mt-0.5">3.2k views</div>
-                </div>
-              </li>
-              <li class="flex gap-3">
-                <div class="text-xs font-extrabold w-6 muted">02</div>
-                <div>
-                  <div class="text-sm font-semibold linky cursor-pointer">The “Bench Points” Hall of Shame</div>
-                  <div class="text-xs muted mt-0.5">2.7k views</div>
-                </div>
-              </li>
-              <li class="flex gap-3">
-                <div class="text-xs font-extrabold w-6 muted">03</div>
-                <div>
-                  <div class="text-sm font-semibold linky cursor-pointer">Trade grades: instant reactions</div>
-                  <div class="text-xs muted mt-0.5">1.9k views</div>
-                </div>
-              </li>
-            </ol>
-          </div>
-
-          <!-- League Wire -->
-          <div class="panel rounded-3xl p-5">
-            <h3 class="font-extrabold tracking-tight">League Wire</h3>
-            <div class="mt-4 space-y-3">
-              <div class="panel2 rounded-2xl p-4">
-                <div class="text-xs muted">Commissioner • Dec 19, 2025</div>
-                <div class="text-sm font-semibold mt-1">Playoff bracket locks after MNF</div>
-                <div class="text-xs muted mt-1">Tie-breakers: PF → H2H → PA</div>
-              </div>
-              <div class="panel2 rounded-2xl p-4">
-                <div class="text-xs muted">System • Dec 18, 2025</div>
-                <div class="text-sm font-semibold mt-1">Waivers run: Thursday 10:00 AM</div>
-                <div class="text-xs muted mt-1">Reminder: FAAB bids due by 9:45</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Newsletter / subscribe -->
-          <div class="panel rounded-3xl p-5">
-            <h3 class="font-extrabold tracking-tight">Get the weekly recap</h3>
-            <p class="text-sm muted mt-2">
-              One email per week with the best writeups, plus the “one chart that matters.”
-            </p>
-            <div class="mt-4 flex gap-2">
-              <input class="ringy flex-1 rounded-2xl px-4 py-2 panel2 text-sm" placeholder="Email address" />
-              <button class="ringy rounded-2xl px-4 py-2 text-sm font-semibold"
-                      style="background:rgba(124,58,237,.16); border:1px solid rgba(124,58,237,.28)">
-                Subscribe
-              </button>
-            </div>
-            <div class="text-xs muted mt-2">You can swap this for a Google Form embed later.</div>
-          </div>
-        </aside>
-      </div>
-
-      <footer class="px-6 pb-8">
-        <div class="muted text-xs">
-          © League Hub • Built for trash talk and truth.
+          </aside>
         </div>
-      </footer>
-    </main>
 
-  </div>
+        <footer class="px-6 pb-8">
+          <div class="muted text-xs">© League Hub • Built for trash talk and truth.</div>
+        </footer>
+      `
+    });
+
+    // After layout is mounted, render bracket into the container
+    renderWinnersBracket({ leagueId: LEAGUE_ID, mountId: "playoffBracket" });
+  </script>
 </body>
 </html>

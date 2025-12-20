@@ -4,4 +4,6 @@ body { margin: 0; background: #0e1420; color: #e9eef7; }
 .nav { display: flex; gap: 12px; padding: 12px 16px; background: #161f2f; border-bottom: 1px solid rgba(255,255,255,.12); }
 .nav a { color: #cfe0ff; text-decoration: none; padding: 6px 10px; border-radius: 8px; }
 .nav a.active { background: rgba(255,255,255,.10); }
-.panel { background: #1a2536; border: 1px solid rgba(255,255,255,.12); padding: 12px; border-radius: 12px; overflow: auto; }
+.legacy-panel { background: #1a2536; border: 1px solid rgba(255,255,255,.12); padding: 12px; border-radius: 12px; overflow: auto; }
+
+

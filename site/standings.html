@@ -1,25 +1,91 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Standings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="./css/styles.css" />
 </head>
-<body>
-  <nav class="nav">
-    <a href="./index.html">Home</a>
-    <a class="active" href="./standings.html">Standings</a>
-    <a href="./matchups.html">Matchups</a>
-  </nav>
 
-  <main class="container">
-    <h1>Standings</h1>
-    <p id="status">Loading…</p>
-    <pre id="out" class="panel"></pre>
-  </main>
+<body class="min-h-screen">
+  <div id="app"></div>
 
-  <!-- One module entry file per page -->
-  <script type="module" src="./js/standings.js"></script>
+  <script type="module">
+    import { renderLayout } from "./js/layout.js";
+    import { getStandings } from "./js/standings.js";
+
+    renderLayout({
+      active: "standings",
+      mainHtml: `
+        <header class="px-6 py-5 border-b" style="border-color:var(--border)">
+          <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h1 class="text-2xl font-extrabold tracking-tight">Standings</h1>
+              <p class="muted text-sm mt-1">Live from Sleeper: W/L, PF, PA. MaxPF + efficiency coming next.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="refreshBtn" class="ringy rounded-2xl px-4 py-2 text-sm font-semibold"
+                      style="background:rgba(255,255,255,.06); border:1px solid var(--border)">
+                Refresh
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <div class="px-6 py-6">
+          <div class="panel rounded-3xl p-5 overflow-auto">
+            <table class="w-full text-sm">
+              <thead class="muted text-xs">
+                <tr>
+                  <th class="text-left py-2">Rank</th>
+                  <th class="text-left py-2">Team</th>
+                  <th class="text-left py-2">Owner</th>
+                  <th class="text-right py-2">W</th>
+                  <th class="text-right py-2">L</th>
+                  <th class="text-right py-2">PF</th>
+                  <th class="text-right py-2">PA</th>
+                </tr>
+              </thead>
+              <tbody id="rows">
+                <tr><td colspan="7" class="py-3 muted">Loading…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <footer class="px-6 pb-8">
+          <div class="muted text-xs">© League Hub • Built for trash talk and truth.</div>
+        </footer>
+      `
+    });
+
+    async function render() {
+      const tbody = document.getElementById("rows");
+      try {
+        const data = await getStandings();
+        tbody.innerHTML = data.map(r => `
+          <tr style="border-top:1px solid var(--border)">
+            <td class="py-2">${r.rank}</td>
+            <td class="py-2 font-semibold">${r.team}</td>
+            <td class="py-2">${r.owner || ""}</td>
+            <td class="py-2 text-right">${r.w}</td>
+            <td class="py-2 text-right">${r.l}</td>
+            <td class="py-2 text-right">${Number(r.pf).toFixed(2)}</td>
+            <td class="py-2 text-right">${Number(r.pa).toFixed(2)}</td>
+          </tr>
+        `).join("");
+      } catch (e) {
+        console.error(e);
+        tbody.innerHTML = `<tr><td colspan="7" class="py-3 muted">Could not load standings.</td></tr>`;
+      }
+    }
+
+    // Manual refresh: clear cache then re-render
+    document.getElementById("refreshBtn").addEventListener("click", () => {
+      try { sessionStorage.clear(); } catch (_) {}
+      render();
+    });
+
+    render();
+  </script>
 </body>
 </html>

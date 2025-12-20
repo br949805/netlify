@@ -1,6 +1,6 @@
 // Shared API helper (ES module)
 
-export const API_BASE = "https://script.google.com/macros/s/XXXXX/exec";
+export const API_BASE = "https://script.google.com/macros/s/AKfycbyS40ekvxtFXjjj9NIav3xe-4ZUTxc1EEdfpGJalS69h0NUSZKC8u6jwowuJhOhXo_hDQ/exec";
 
 export async function api(endpoint, params = {}) {
   const url = new URL(API_BASE);
@@ -17,3 +17,4 @@ export async function api(endpoint, params = {}) {
 
   return res.json();
 }
+
