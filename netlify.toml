@@ -1,0 +1,17 @@
+[build]
+  publish = "site"
+
+[[redirects]]
+  from = "/standings"
+  to = "/standings.html"
+  status = 200
+
+[[redirects]]
+  from = "/matchups"
+  to = "/matchups.html"
+  status = 200
+
+[[redirects]]
+  from = "/players"
+  to = "/players.html"
+  status = 200
