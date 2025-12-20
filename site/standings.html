@@ -1,29 +1,25 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Standings</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="./css/styles.css" />
 </head>
 <body>
+  <nav class="nav">
+    <a href="./index.html">Home</a>
+    <a class="active" href="./standings.html">Standings</a>
+    <a href="./matchups.html">Matchups</a>
+  </nav>
 
-<nav>
-  <a href="/">Home</a>
-  <a href="/standings">Standings</a>
-  <a href="/matchups">Matchups</a>
-  <a href="/players">Players</a>
-</nav>
+  <main class="container">
+    <h1>Standings</h1>
+    <p id="status">Loading…</p>
+    <pre id="out" class="panel"></pre>
+  </main>
 
-<h1>League Standings</h1>
-<div id="standings"></div>
-
-<script type="module">
-  import { api } from "./js/api.js";
-
-  const data = await api("standings");
-  document.getElementById("standings").innerText =
-    JSON.stringify(data, null, 2);
-</script>
-
+  <!-- One module entry file per page -->
+  <script type="module" src="./js/standings.js"></script>
 </body>
 </html>
