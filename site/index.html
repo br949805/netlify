@@ -18,17 +18,17 @@
     renderLayout({
       active: "home",
       mainHtml: `
-        <header class="px-6 py-5 border-b" style="border-color:var(--border)">
-          <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <header class="px-4 py-4 md:px-6 md:py-5 border-b" style="border-color:var(--border)">
+          <div class="flex flex-col gap-3 md:gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <h1 class="text-2xl font-extrabold tracking-tight">News & Stories</h1>
               <p class="muted text-sm mt-1">Recaps, power rankings, trade drama, and commissioner posts — all in one place.</p>
             </div>
 
             <div class="flex items-center gap-2">
-              <div class="relative">
+              <div class="relative flex-1">
                 <input
-                  class="ringy w-[280px] md:w-[360px] rounded-2xl px-4 py-2 panel2 text-sm"
+                  class="ringy w-full md:w-[360px] rounded-2xl px-4 py-2 panel2 text-sm"
                   placeholder="Search stories, teams, players…"
                 />
               </div>
@@ -49,16 +49,16 @@
           </div>
         </header>
 
-        <div class="px-6 py-6 grid grid-cols-1 xl:grid-cols-12 gap-6">
+        <div class="px-4 py-4 md:px-6 md:py-6 grid grid-cols-1 xl:grid-cols-12 gap-4 md:gap-6">
           <!-- Middle column: feed -->
-          <section class="xl:col-span-8 space-y-6">
+          <section class="xl:col-span-8 space-y-4 md:space-y-6">
 
-            <!-- NEW: Playoff bracket (topmost content) -->
+            <!-- Playoff bracket -->
             <div id="playoffBracket"></div>
 
             <!-- Featured story -->
             <article class="panel rounded-3xl overflow-hidden">
-              <div class="p-6 md:p-7">
+              <div class="p-5 md:p-7">
                 <div class="flex items-center gap-2 text-xs">
                   <span class="px-2 py-1 rounded-full"
                         style="background:rgba(45,212,191,.14); border:1px solid rgba(45,212,191,.25); color:var(--text)">
@@ -98,7 +98,7 @@
               </div>
             </article>
 
-            <!-- Story grid (kept as-is, you can expand later) -->
+            <!-- Story grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <article class="panel rounded-3xl p-5">
                 <div class="flex items-center justify-between">
@@ -142,8 +142,8 @@
             </div>
           </section>
 
-          <!-- Right sidebar (unchanged) -->
-          <aside class="xl:col-span-4 space-y-6">
+          <!-- Right sidebar -->
+          <aside class="xl:col-span-4 space-y-4 md:space-y-6">
             <div class="panel rounded-3xl p-5">
               <div class="flex items-center justify-between">
                 <h3 class="font-extrabold tracking-tight">Trending</h3>
@@ -193,13 +193,12 @@
           </aside>
         </div>
 
-        <footer class="px-6 pb-8">
+        <footer class="px-4 md:px-6 pb-8">
           <div class="muted text-xs">© League Hub • Built for trash talk and truth.</div>
         </footer>
       `
     });
 
-    // After layout is mounted, render bracket into the container
     renderWinnersBracket({ leagueId: LEAGUE_ID, mountId: "playoffBracket" });
   </script>
 </body>

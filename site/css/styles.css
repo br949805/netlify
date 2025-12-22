@@ -54,7 +54,7 @@ body{ background:var(--bg0); color:var(--text); }
 .rules ul{ list-style: disc; padding-left: 1.25rem; }
 
 /* ===== Bracket styles ===== */
-.bracket-wrap { overflow-x: auto; }
+.bracket-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .bracket {
   display: grid;
   gap: 20px;
@@ -158,4 +158,8 @@ body{ background:var(--bg0); color:var(--text); }
 .bracket-round.is-last .bracket-game::before,
 .bracket-round.is-last .bracket-game::after {
   display: none;
+}
+
+@media (max-width: 767px){
+  .bracket-round { min-width: 220px; }
 }
