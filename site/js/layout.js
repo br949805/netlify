@@ -24,7 +24,7 @@ function sidebarHtml(active) {
       <nav class="px-3 py-3 space-y-1">
         <a class="navlink ${is("home")}" ${aria("home")} href="./index.html">
           <span class="text-sm font-semibold">Home</span>
-          <span class="nav-badge">Home</span>
+          
         </a>
 
         <a class="navlink ${is("standings")}" ${aria("standings")} href="./standings.html">
@@ -66,7 +66,7 @@ function topbarHtml() {
       <div class="px-4 py-3 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <img src="./assets/logo.svg" alt="League logo" class="w-9 h-9 object-contain" />
-          <div class="font-extrabold tracking-tight">The League of Ordinary Gentlemen League Hub</div>
+          <div class="font-extrabold tracking-tight">LoOG Dynasty League Hub</div>
         </div>
         <button id="menuBtn"
           class="ringy rounded-xl px-3 py-2 text-sm font-semibold"
