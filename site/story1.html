@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+
+<body class="min-h-screen">
+  <div id="app"></div>
+
+  <script type="module">
+    import { renderLayout } from "./js/layout.js";
+
+    renderLayout({
+      active: "story1",
+      mainHtml: `
+        <header class="px-6 py-5 border-b" style="border-color:var(--border)">
+          <div>
+            <h1 class="text-2xl font-extrabold tracking-tight">Breaking News</h1>
+          </div>
+        </header>
+
+        <div class="max-w-[100ch] px-6 py-5">
+          <div class="panel rounded-3xl p-6 rules">
+           
+    <h2 class="text-2xl font-extrabold tracking-tight">Monstrhuntr Caps Dominant Postseason With Championship Victory</h2>
+</br>
+   <p>The postseason has delivered a blend of unpredictability and authority, culminating in a championship performance that left little doubt about the league’s best team when it mattered most.
+The playoff narrative began with an unexpected surge from Pork-Chop Express, the fifth seed, who authored one of the most compelling runs in recent league history. 
+</p></br><p>After dispatching Smelt in the opening round, Pork-Chop Express followed with a decisive upset of top-seeded AaronRob44, ending the regular season favorite’s title hopes and reshaping the bracket. The back-to-back victories transformed Pork-Chop Express from underdog to legitimate contender and set the stage for a championship appearance few would have predicted.
+</p></br><p>On the opposite side of the bracket, Monstrhuntr advanced with authority. A convincing opening-round win over Marauders was followed by a semifinal showdown with BMRoberson that proved to be the highest-scoring game of the postseason. Monstrhuntr’s explosive 162.60-point performance not only secured a place in the championship game but also signaled a team operating at its peak.
+</p></br><p>The title game itself was defined by control rather than suspense. Monstrhuntr sustained its postseason momentum, posting another massive score to defeat Pork-Chop Express' and secure the league championship. The victory capped a dominant playoff stretch in which Monstrhuntr consistently outpaced opponents and demonstrated both depth and reliability across the roster.
+</p></br><p>In the third-place matchup, FireDrakes rebounded from its semifinal defeat to finish the season on the podium, closing the year with a strong performance and reaffirming its standing among the league’s top competitors.
+</p></br><p>As the season concludes, the championship adds another chapter to the league’s history of competitive balance. With Monstrhuntr becoming the seventh different champion in nine seasons, The League of Ordinary Gentlemen continues to distinguish itself by its parity and unpredictability at the top. Sustained dominance has proven elusive, and each postseason reinforces the reality that championships are earned anew every year. Pork-Chop Express' improbable run, Monstrhuntr’s decisive title, and a consistently deep playoff field together reflect a league where no advantage is permanent and no contender can be overlooked once the bracket is set.
+
+    </p>
+    
+    
+    </div>
+
+        <footer class="px-6 pb-8">
+          <div class="muted text-xs">© League Hub.</div>
+        </footer>
+      `
+    });
+  </script>
+</body>
+</html>

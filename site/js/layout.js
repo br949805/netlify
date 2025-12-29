@@ -23,7 +23,7 @@ function sidebarHtml(active) {
 
       <nav class="px-3 py-3 space-y-1">
         <a class="navlink ${is("home")}" ${aria("home")} href="./index.html">
-          <span class="text-sm font-semibold">News & Stories</span>
+          <span class="text-sm font-semibold">Home</span>
           <span class="nav-badge">Home</span>
         </a>
 
@@ -43,7 +43,7 @@ function sidebarHtml(active) {
         </a>
       </nav>
 
-      <!-- Hide the tip card on mobile to reduce clutter -->
+      <!-- Hide the tip card on mobile to reduce clutter 
       <div class="mt-auto p-4 hidden md:block">
         <div class="panel2 rounded-2xl p-4">
           <div class="text-sm font-semibold">Tip</div>
@@ -55,7 +55,7 @@ function sidebarHtml(active) {
             Create Story
           </button>
         </div>
-      </div>
+      </div> --->
     </aside>
   `;
 }

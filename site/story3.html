@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+
+<body class="min-h-screen">
+  <div id="app"></div>
+
+  <script type="module">
+    import { renderLayout } from "./js/layout.js";
+
+    renderLayout({
+      active: "story3",
+      mainHtml: `
+        <header class="px-6 py-5 border-b" style="border-color:var(--border)">
+          <div>
+            <h1 class="text-2xl font-extrabold tracking-tight">Draft Analysis</h1>
+          </div>
+        </header>
+
+        <div class="max-w-[100ch] px-6 py-5">
+  <div class="panel rounded-3xl p-6 rules space-y-6">
+
+    <header class="space-y-3">
+      <h2 class="text-2xl font-extrabold tracking-tight">
+        Week 14 Preview: Seeding, Survival, and the Silent Tank
+      </h2>
+      <p class="text-sm muted">
+        One week left. Five playoff spots nearly locked. One Wildcard PF berth up
+        for grabs. And at the bottom, a quiet but ruthless race for the No. 1 draft
+        pick.
+      </p>
+      <p class="font-semibold">
+        Week 14 is shaping up to be the most chaotic slate of the season.
+      </p>
+    </header>
+
+    <!-- Top of the Table -->
+    <section class="space-y-3">
+      <h3 class="text-lg font-bold tracking-tight">
+        Top of the Table: Seeding Wars
+      </h3>
+
+      <ul class="list-disc pl-5 space-y-1">
+        <li><strong>Nightvale (11–2)</strong> looks to lock the No. 1 seed.</li>
+        <li>
+          <strong>FireDrakes (10–3)</strong> lead the league in Points For and battle
+          <strong>Team monstrhuntr (9–4)</strong> in a potential playoff preview.
+        </li>
+        <li>
+          <strong>Alpha Males (8–5)</strong> round out the top four, all but guaranteed
+          a ticket to the bracket.
+        </li>
+      </ul>
+
+      <p>
+        The FireDrakes–monstrhuntr showdown is the headline game:
+        <strong>seeding, bragging rights, and momentum</strong> all on the line.
+      </p>
+    </section>
+
+    <!-- Wildcard -->
+    <section class="space-y-3">
+      <h3 class="text-lg font-bold tracking-tight">
+        The Wildcard PF Race
+      </h3>
+
+      <p>
+        The sixth playoff spot goes to the non-playoff team with the highest
+        <strong>Points For</strong> — and it’s a crowded field:
+      </p>
+
+      <ul class="list-disc pl-5 space-y-1">
+        <li>
+          <strong>Marauders</strong> currently hold the strongest PF claim among likely outsiders.
+        </li>
+        <li>
+          <strong>Headhunters</strong> could qualify by record or slide into Wildcard
+          contention depending on Week 14.
+        </li>
+        <li>
+          <strong>A Team Has No Name</strong>, <strong>robjanice</strong>, and
+          <strong>mydadysnotayeti</strong> need big PF weeks and a Marauders stumble
+          to stay alive.
+        </li>
+      </ul>
+
+      <p class="italic muted">
+        Every garbage-time catch matters.
+      </p>
+    </section>
+
+    <!-- Bubble Games -->
+    <section class="space-y-3">
+      <h3 class="text-lg font-bold tracking-tight">
+        Bubble Games With Bite
+      </h3>
+
+      <ul class="list-disc pl-5 space-y-1">
+        <li>
+          <strong>Pork-Chop Express (6–7)</strong> can lock a top-five seed by beating
+          <strong>A Team Has No Name</strong>. A loss throws them into Wildcard PF math.
+        </li>
+        <li>
+          <strong>Headhunters vs. Nightvale</strong> is do-or-die:
+          win and stay in the record race, lose and scoreboard-watch PF totals.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Tankathon -->
+    <section class="space-y-3">
+      <h3 class="text-lg font-bold tracking-tight">
+        The Tankathon: Race for the No. 1 Pick
+      </h3>
+
+      <p>
+        Draft order is set by <strong>lowest Max Points For</strong>, measuring true
+        roster strength:
+      </p>
+
+      <ul class="list-disc pl-5 space-y-1">
+        <li><strong>robjanice</strong> — current favorite for the 1.01</li>
+        <li><strong>mydadysnotayeti</strong> — close behind</li>
+        <li>
+          <strong>A Team Has No Name</strong> & <strong>Headhunters</strong> —
+          depending on playoff fate, could slide into early-pick territory
+        </li>
+      </ul>
+
+      <p class="italic">
+        The twist:
+        <strong>
+          a big Week 14 PF day helps your playoff chances — but raises your Max PF
+          and hurts your draft position.
+        </strong>
+        Every point cuts both ways.
+      </p>
+    </section>
+
+    <!-- Stakes -->
+    <section class="space-y-3 border-t pt-5" style="border-color:var(--border)">
+      <h3 class="text-lg font-bold tracking-tight">
+        What’s at Stake
+      </h3>
+
+      <ul class="list-disc pl-5 space-y-1">
+        <li>The top seed between <strong>FireDrakes</strong> and <strong>Nightvale</strong></li>
+        <li>The Wildcard PF spot — the most dramatic race on the board</li>
+        <li>The <strong>1.01 draft pick</strong>, where weak rosters quietly maneuver for the future</li>
+      </ul>
+
+      <p class="font-semibold">
+        It’s all coming down to one Sunday.
+      </p>
+      <p class="muted">
+        In <em>The League of Ordinary Gentlemen</em>, Week 14 isn’t just a finale —
+        it’s destiny-shaping football.
+      </p>
+    </section>
+
+  </div>
+</div>
+
+        <footer class="px-6 pb-8">
+          <div class="muted text-xs">© League Hub.</div>
+        </footer>
+      `
+    });
+  </script>
+</body>
+</html>
