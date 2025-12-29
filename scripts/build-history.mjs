@@ -36,7 +36,7 @@ async function getLeagueChain(startLeagueId) {
   const chain = [];
   let leagueId = startLeagueId;
 
-  while (leagueId) {
+  while (leagueId && leagueId !== "0") {
     const league = await fetchJson(`https://api.sleeper.app/v1/league/${leagueId}`);
 
     chain.push({
@@ -44,15 +44,13 @@ async function getLeagueChain(startLeagueId) {
       season: String(league.season),
       league_id: league.league_id,
       name: league.name,
-      previous_league_id: league.previous_league_id ?? null,
-      playoff_week_start: league.settings?.playoff_week_start ?? null,
-      num_teams: league.settings?.num_teams ?? null
+      previous_league_id: league.previous_league_id ?? null
     });
 
-    leagueId = league.previous_league_id ?? null;
+    const prev = league.previous_league_id;
+    leagueId = (prev && prev !== "0") ? prev : null;
   }
 
-  // Sort oldest -> newest (nice for records computations)
   chain.sort((a, b) => Number(a.season) - Number(b.season));
   return chain;
 }

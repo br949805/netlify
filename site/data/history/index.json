@@ -1,0 +1,47 @@
+{
+  "generated_at": "2025-12-29T20:23:43.373Z",
+  "seasons": [
+    {
+      "source": "sleeper",
+      "season": "2019",
+      "league_id": "376246312041213952",
+      "name": "The League of Ordinary Gentlemen"
+    },
+    {
+      "source": "sleeper",
+      "season": "2020",
+      "league_id": "515915347904557056",
+      "name": "The League of Ordinary Gentlemen"
+    },
+    {
+      "source": "sleeper",
+      "season": "2021",
+      "league_id": "652693455893512192",
+      "name": "The League of Ordinary Gentlemen"
+    },
+    {
+      "source": "sleeper",
+      "season": "2022",
+      "league_id": "803754961279225856",
+      "name": "The League of Ordinary Gentlemen"
+    },
+    {
+      "source": "sleeper",
+      "season": "2023",
+      "league_id": "917460390425059328",
+      "name": "The League of Ordinary Gentlemen"
+    },
+    {
+      "source": "sleeper",
+      "season": "2024",
+      "league_id": "1077259961836597248",
+      "name": "The League of Ordinary Gentlemen"
+    },
+    {
+      "source": "sleeper",
+      "season": "2025",
+      "league_id": "1203358930160328704",
+      "name": "The League of Ordinary Gentlemen"
+    }
+  ]
+}
