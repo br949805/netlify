@@ -15,7 +15,7 @@ function sidebarHtml(active) {
             <img src="./assets/logo.svg" alt="League logo" class="w-full h-full object-contain" />
           </div>
           <div>
-            <div class="font-semibold leading-tight">League Hub</div>
+            <div class="font-semibold leading-tight">LoOG Dynasty League Hub</div>
             <div class="text-xs muted">Dynasty • 2025 Season</div>
           </div>
         </div>
@@ -66,7 +66,7 @@ function topbarHtml() {
       <div class="px-4 py-3 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <img src="./assets/logo.svg" alt="League logo" class="w-9 h-9 object-contain" />
-          <div class="font-extrabold tracking-tight">League Hub</div>
+          <div class="font-extrabold tracking-tight">The League of Ordinary Gentlemen League Hub</div>
         </div>
         <button id="menuBtn"
           class="ringy rounded-xl px-3 py-2 text-sm font-semibold"
