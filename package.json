@@ -1,0 +1,7 @@
+{
+  "name": "league-site",
+  "private": true,
+  "scripts": {
+    "build:history": "node scripts/build-history.mjs"
+  }
+}
